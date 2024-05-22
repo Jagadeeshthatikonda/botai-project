@@ -29,7 +29,7 @@ background: linear-gradient(180deg, rgba(215, 199, 244, 0.2) 0%, rgba(151, 133, 
   }
 `
 export const BodyContainer = styled.div`
-${tw`grow overflow-x-hidden overflow-y-auto w-full  h-full relative`}
+${tw`grow overflow-x-hidden overflow-y-auto w-full  h-full relative flex flex-col`}
 `
 
 export const SidebarContainer = styled.div`

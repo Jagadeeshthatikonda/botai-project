@@ -6,8 +6,6 @@ import * as Styled from './StyledComponents'
 
 const Sidebar = () =>
 
-
-
   <Styled.LargeSizeSidebarContainer>
     <Styled.SidebarContainer>
       <Styled.SidebarMenuItem>

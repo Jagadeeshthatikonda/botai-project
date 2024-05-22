@@ -1,7 +1,12 @@
 import HomeLogo from "../../assets/HomeLogo.png"
 import * as Styled from "./StyledComponents";
+import { cardsConfig } from "../../utils/QuickChatConfig.js"
+import SendMessage from "../SendMessage/SendMessage"
+import { useState } from 'react'
+import QuestionAndReplyChatCards from "../QuestionAndReplyChatCards/QuestionAndReplyChatCards.jsx";
+const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, onChangeMessage }) => {
+  const [message, setMessage] = useState();
 
-const HomeRightBodyContent = ({ isMobile }) => {
 
   const renderHomeTitleWithLogo = () => <Styled.HomeTitleWithLogoContainer>
     <Styled.HomeHeadingText>How Can I Help You Today?</Styled.HomeHeadingText>
@@ -12,12 +17,49 @@ const HomeRightBodyContent = ({ isMobile }) => {
     />
   </Styled.HomeTitleWithLogoContainer>
 
+  const renderCard = (title, description, index) => <Styled.Card key={index}>
+    <Styled.CardTitle>
+      {title}
+    </Styled.CardTitle>
+
+    <Styled.CardDescription>
+      {description}
+    </Styled.CardDescription>
+
+  </Styled.Card>
+
+  const renderQuickChatFeatures = () => <Styled.QuickChatFeaturesContainer>
+    {
+      cardsConfig.map((config, index) => renderCard(config.title, config.description, index))
+    }
+
+  </Styled.QuickChatFeaturesContainer>
+
+
+  const onClickAsk = () => {
+    onChangeMessage(message)
+  }
+
+  const onClickSave = () => {
+    //
+  }
+
+  const renderListOfAskedMessagesWithResponses = () =>
+    <Styled.ChatMessages>
+      {askedMessagesWithResponses.map(askedMessageWithResponse => <QuestionAndReplyChatCards askedMessageWithResponse={askedMessageWithResponse} />)
+      }  </Styled.ChatMessages>
+
+  const hasMessages = askedMessagesWithResponses.length
+
   return (
     <Styled.ChatBodyContainer>
       {isMobile ? null : <Styled.BotAIText>Bot AI</Styled.BotAIText>}
 
-      {renderHomeTitleWithLogo()}
+      {hasMessages ? null : renderHomeTitleWithLogo()}
+      {hasMessages ? null : renderQuickChatFeatures()}
 
+      {renderListOfAskedMessagesWithResponses()}
+      <SendMessage message={message} setMessage={setMessage} onClickAsk={onClickAsk} onClickSave={onClickSave} />
     </Styled.ChatBodyContainer>
   );
 };
