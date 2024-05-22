@@ -34,6 +34,14 @@ const Home = () => {
     );
   };
 
+  const updateFeedback = (id, feedback) => {
+    setAskedMessagesWithResponses(prevMessages =>
+      prevMessages.map(message =>
+        message.id === id ? { ...message, feedback } : message
+      )
+    );
+  };
+
   const checkIsMobile = () => {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
     const isMobileDevice = /android|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(userAgent);
@@ -67,7 +75,7 @@ const Home = () => {
         {openSideBar && isMobile ? <Styled.SidebarContainer openSideBar={openSideBar}>
           <Sidebar />
         </Styled.SidebarContainer> : null}
-        <HomeRightBodyContent isMobile={isMobile} askedMessagesWithResponses={askedMessagesWithResponses} onChangeMessage={onChangeMessage} updateRating={updateRating} />
+        <HomeRightBodyContent isMobile={isMobile} askedMessagesWithResponses={askedMessagesWithResponses} onChangeMessage={onChangeMessage} updateRating={updateRating} updateFeedback={updateFeedback} />
       </Styled.BodyContainer>
     </Styled.HomePageContainer>
   );

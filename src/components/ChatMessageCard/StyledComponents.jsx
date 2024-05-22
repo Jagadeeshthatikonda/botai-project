@@ -43,3 +43,20 @@ export const EmotionImage = styled.img`
   ${tw`w-4 h-4 cursor-pointer ml-2 first:ml-6 `}
   
 `;
+
+
+export const FeedbackWrapper = styled.p`
+${tw`mt-5`}
+`
+
+export const FeedbackText = styled.span`
+${tw`text-xs  font-normal leading-[21px]`}
+
+font-family:Open Sans
+`
+
+export const FeedbackHeading = styled.span`
+${tw` font-bold leading-[21px]`}
+
+font-family:Open Sans
+`

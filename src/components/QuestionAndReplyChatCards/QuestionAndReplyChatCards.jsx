@@ -1,6 +1,6 @@
 import * as Styled from "./StyledComponents";
 import ChatMessageCard from "../ChatMessageCard/ChatMessageCard";
-const QuestionAndReplyChatCards = ({ askedMessageWithResponse, updateRating }) => (
+const QuestionAndReplyChatCards = ({ askedMessageWithResponse, updateRating, updateFeedback }) => (
   <Styled.MessagesListContainer>
     {["question", "reply"].map((value) => {
       return (
@@ -8,6 +8,7 @@ const QuestionAndReplyChatCards = ({ askedMessageWithResponse, updateRating }) =
           askedMessageWithResponse={askedMessageWithResponse}
           typeOfCard={value}
           updateRating={updateRating}
+          updateFeedback={updateFeedback}
         />
       );
     })}
