@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as Styled from "./StyledComponents";
 import Sidebar from "../Sidebar/Sidebar";
 import NavbarToggle from "../NavbarToggle/NavbarToggle";
+import HomeRightBodyContent from '../HomeRightBodyContent/HomeRightBodyContent'
 
 const Home = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -32,6 +33,7 @@ const Home = () => {
     };
   }, []);
 
+
   return (
     <Styled.HomePageContainer>
       {isMobile ? <NavbarToggle openSidebar={openSideBar} setOpenSidebar={setOpenSidebar} /> : <Sidebar />}
@@ -39,6 +41,7 @@ const Home = () => {
         {openSideBar && isMobile ? <Styled.SidebarContainer openSideBar={openSideBar}>
           <Sidebar />
         </Styled.SidebarContainer> : null}
+        <HomeRightBodyContent isMobile={isMobile} />
       </Styled.BodyContainer>
     </Styled.HomePageContainer>
   );
