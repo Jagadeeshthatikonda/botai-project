@@ -33,10 +33,10 @@ ${tw`flex items-center flex-wrap gap-y-[14px] gap-x-[32px] mt-[100px]`}
 `
 
 export const Card = styled.div`
-${tw`flex flex-col min-w-[355px] min-h-[111px] bg-white px-4 pt-4 rounded-[5px]`}
+${tw`flex flex-col grow min-w-[355px] min-h-[111px] bg-white px-4 pt-4 rounded-[5px]`}
 box-shadow: 0px 4px 4px 0px #00000040;
 
-@media (min-width: 800px) {
+@media (min-width: 1077px) {
    ${tw`w-[45%]`}
   }
 
