@@ -4,7 +4,7 @@ import { cardsConfig } from "../../utils/QuickChatConfig.js"
 import SendMessage from "../SendMessage/SendMessage"
 import { useState } from 'react'
 import QuestionAndReplyChatCards from "../QuestionAndReplyChatCards/QuestionAndReplyChatCards.jsx";
-const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, onChangeMessage, updateRating, updateFeedback }) => {
+const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, onChangeMessage, updateRating, updateFeedback, onSaveMessages }) => {
   const [message, setMessage] = useState();
 
 
@@ -41,7 +41,7 @@ const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, onChangeMe
   }
 
   const onClickSave = () => {
-    //
+    onSaveMessages()
   }
 
   const renderListOfAskedMessagesWithResponses = () =>

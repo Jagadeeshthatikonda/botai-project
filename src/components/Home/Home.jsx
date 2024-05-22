@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Route, Routes } from "react-router-dom";
+
 import * as Styled from "./StyledComponents";
 import Sidebar from "../Sidebar/Sidebar";
 import NavbarToggle from "../NavbarToggle/NavbarToggle";
@@ -6,10 +8,16 @@ import HomeRightBodyContent from '../HomeRightBodyContent/HomeRightBodyContent'
 import { v4 as uuidV4 } from "uuid"
 import { getFormattedTime } from "../../utils/DateUtils"
 import { checkIsMobile } from "../../utils/DeviceUtils"
+import PastConversationHistory from '../PastConversationHistory/PastConversationHistory';
 const Home = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [openSideBar, setOpenSidebar] = useState(false);
   const [askedMessagesWithResponses, setAskedMessagesWithResponses] = useState([]);
+  const [savedMessages, setSavedMessages] = useState([]);
+
+  const onSaveMessages = () => {
+    setSavedMessages(askedMessagesWithResponses)
+  }
 
   const onChangeMessage = (message) => {
 
@@ -63,14 +71,32 @@ const Home = () => {
   }, []);
 
 
+  const handleRoutes = () =>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <HomeRightBodyContent isMobile={isMobile} askedMessagesWithResponses={askedMessagesWithResponses} onChangeMessage={onChangeMessage} updateRating={updateRating} updateFeedback={updateFeedback} onSaveMessages={onSaveMessages} />
+
+        }
+      />
+      <Route
+        path="/history"
+        element={
+          <PastConversationHistory savedMessages={savedMessages} />
+        }
+      />
+
+    </Routes>
+
   return (
     <Styled.HomePageContainer>
-      {isMobile ? <NavbarToggle openSidebar={openSideBar} setOpenSidebar={setOpenSidebar} /> : <Sidebar />}
+      {isMobile ? <NavbarToggle openSidebar={openSideBar} setOpenSidebar={setOpenSidebar} /> : <Sidebar hasSavedMessages={savedMessages.length > 0} />}
       <Styled.BodyContainer>
         {openSideBar && isMobile ? <Styled.SidebarContainer openSideBar={openSideBar}>
-          <Sidebar />
+          <Sidebar hasSavedMessages={savedMessages.length > 0} />
         </Styled.SidebarContainer> : null}
-        <HomeRightBodyContent isMobile={isMobile} askedMessagesWithResponses={askedMessagesWithResponses} onChangeMessage={onChangeMessage} updateRating={updateRating} updateFeedback={updateFeedback} />
+        {handleRoutes()}
       </Styled.BodyContainer>
     </Styled.HomePageContainer>
   );

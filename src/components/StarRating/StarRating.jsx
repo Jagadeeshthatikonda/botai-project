@@ -3,19 +3,23 @@ import * as Styled from './StyledComponents';
 
 
 
-const StarRating = ({ onChangeRating }) => {
+const StarRating = ({ onChangeRating, isReadonly, ratingValue }) => {
   const [hovered, setHovered] = useState(null);
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(ratingValue ? ratingValue : 0);
 
   const handleMouseOver = (index) => {
+    if (isReadonly) return
     setHovered(index);
   };
 
   const handleMouseOut = () => {
+    if (isReadonly) return
     setHovered(null);
   };
 
   const handleClick = (index) => {
+    if (isReadonly) return
+
     setRating(index);
     onChangeRating(index)
   };
@@ -31,6 +35,7 @@ const StarRating = ({ onChangeRating }) => {
             onMouseOver={() => handleMouseOver(star)}
             onMouseOut={handleMouseOut}
             onClick={() => handleClick(star)}
+            isReadonly={isReadonly}
           >
             ★
           </Styled.Star>

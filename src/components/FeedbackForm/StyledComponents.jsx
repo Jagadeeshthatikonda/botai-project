@@ -15,6 +15,10 @@ export const Form = styled.form`
 
 export const TextArea = styled.textarea`
  ${tw`w-[716px] h-[187px] border rounded-tl-lg p-2 mb-2 resize-none self-end`}
+
+ @media (max-width: 800px) {
+   ${tw`w-[300px]`}
+  }
 `;
 
 export const SubmitButton = styled.button`

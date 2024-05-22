@@ -16,11 +16,12 @@ ${tw`flex justify-center items-center`}
 export const Star = styled.span`
 
 ${tw`text-lg cursor-pointer`}
-  color: ${({ isFilled }) => (isFilled ? 'orange' : 'gray')};
+  color: ${({ isFilled, isReadonly }) => (isFilled ? `${isReadonly ? "black" : "orange"}` : 'gray')};
+ 
   transition: color 0.2s ease-in-out;
 
   &:hover {
-    color: orange;
+    color: ${props => props.isReadonly ? "" : "orange"};
   }
 `;
 

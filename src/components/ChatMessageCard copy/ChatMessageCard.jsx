@@ -10,7 +10,7 @@ import ProvideFeedbackModal from "../FeedbackForm/FeedbackForm";
 const ChatMessageCard = ({ askedMessageWithResponse, typeOfCard, updateRating, updateFeedback }) => {
   const { time, message, response, rating, id, feedback } = askedMessageWithResponse;
   const [isHovered, setIsHovered] = useState(false);
-  const [showStarRating, setShowStarRating] = useState(rating ? true : false);
+  const [showStarRating, setShowStarRating] = useState(false);
   const [isOpenFeedbackForm, setIsOpenFeedbackForm] = useState(false);
   const isUserAI = typeOfCard === "reply";
   const userImage = isUserAI ? HomeLogo : MyProfile;
@@ -62,7 +62,7 @@ const ChatMessageCard = ({ askedMessageWithResponse, typeOfCard, updateRating, u
   );
 
   const renderStarRating = () => (
-    isUserAI && showStarRating && <StarRating onChangeRating={onChangeRating} ratingValue={rating} />
+    isUserAI && showStarRating && <StarRating onChangeRating={onChangeRating} />
   );
 
   const renderFeedback = () => (

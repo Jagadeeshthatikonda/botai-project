@@ -1,14 +1,18 @@
 
 import SidebarLogo from "../../assets/Sidebarlogo.png"
-import Menu from "../../assets/Menu.png"
 import ChatEditLogo from "../../assets/ChatEditLogo.png"
 import * as Styled from './StyledComponents'
+import { useNavigate } from "react-router-dom";
 
-const Sidebar = () =>
 
-  <Styled.LargeSizeSidebarContainer>
+const Sidebar = ({ hasSavedMessages }) => {
+  const navigate = useNavigate();
+
+  return <Styled.LargeSizeSidebarContainer>
     <Styled.SidebarContainer>
-      <Styled.SidebarMenuItem>
+      <Styled.SidebarMenuItem onClick={() => {
+        navigate("/");
+      }}>
         <Styled.ImageContainer src={SidebarLogo} srcSet="" alt="sidebar logo" width={32} height={32} />
 
         <Styled.MenuItemText>
@@ -19,12 +23,14 @@ const Sidebar = () =>
 
 
       </Styled.SidebarMenuItem>
-      <Styled.PastConversationContainer>
+      {hasSavedMessages ? <Styled.PastConversationContainer onClick={() => {
+        navigate("/history");
+      }}>
         Past Conversations
-      </Styled.PastConversationContainer>
+      </Styled.PastConversationContainer> : null}
     </Styled.SidebarContainer>
   </Styled.LargeSizeSidebarContainer>
 
-
+}
 
 export default Sidebar
