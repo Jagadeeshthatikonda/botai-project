@@ -39,7 +39,6 @@
 
 - **Performance Optimization**: Further optimize the bundle size by removing unused Tailwind CSS utilities using PurgeCSS.
 - **Testing**: Implement comprehensive unit and integration tests using Jest and React Testing Library.
-- **Accessibility Enhancements**: Ensure the application is fully accessible by conducting thorough accessibility audits and implementing necessary improvements.
 
 ## **How to Use the Application**
 
