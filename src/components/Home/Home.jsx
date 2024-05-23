@@ -22,7 +22,7 @@ const Home = () => {
   const [isLightTheme, setIsLightTheme] = useState(true);
 
   const handleToggleThemeChange = () => {
-    setIsLightTheme(!isLightTheme);
+    setIsLightTheme(prev => !prev);
   };
 
 
@@ -105,9 +105,11 @@ const Home = () => {
   return (
     <ThemeContext.Provider value={isLightTheme}>
       <Styled.HomePageContainer>
+        {isMobile ? <ToggleSwitch id="checked" checked={isLightTheme} onChange={handleToggleThemeChange} /> : null}
         {isMobile ? <NavbarToggle openSidebar={openSideBar} setOpenSidebar={setOpenSidebar} /> : <Sidebar hasSavedMessages={savedMessages.length > 0} />}
         <Styled.BodyContainer>
-          <ToggleSwitch id="toggle" checked={isLightTheme} onChange={handleToggleThemeChange} />
+
+          {isMobile ? null : <ToggleSwitch id="checked" checked={isLightTheme} onChange={handleToggleThemeChange} />}
 
           {openSideBar && isMobile ? <Styled.SidebarContainer openSideBar={openSideBar}>
             <Sidebar hasSavedMessages={savedMessages.length > 0} />

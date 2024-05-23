@@ -2,7 +2,7 @@ import styled, { keyframes } from "styled-components";
 import tw from "twin.macro";
 
 export const ChatBodyContainer = styled.div`
-  ${tw`  flex flex-col justify-end  grow  w-full px-[14px]`}
+  ${tw`  flex flex-col justify-end  grow overflow-hidden  w-full`}
   ${props => props.isLightTheme ? tw`` : tw`bg-black `}
 `;
 
@@ -65,5 +65,5 @@ font-family:Open Sans;
 
 export const ChatMessages = styled.div`
 
-${tw`flex flex-col justify-start gap-y-4 my-4`}
+${tw`flex flex-col justify-start grow overflow-y-auto gap-y-4 my-4 p-[14px]`}
 `

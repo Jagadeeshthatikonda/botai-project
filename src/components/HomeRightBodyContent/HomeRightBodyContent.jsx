@@ -5,10 +5,11 @@ import SendMessage from "../SendMessage/SendMessage"
 import { useState } from 'react'
 import QuestionAndReplyChatCards from "../QuestionAndReplyChatCards/QuestionAndReplyChatCards.jsx";
 import { ThemeContext } from "../Home/Home.jsx";
-import { useContext } from "react"
+import { useContext, useEffect, useRef } from "react"
 const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, onChangeMessage, updateRating, updateFeedback, onSaveMessages }) => {
   const [message, setMessage] = useState();
   const theme = useContext(ThemeContext);
+  const messagesEndRef = useRef(null);
 
 
 
@@ -42,21 +43,35 @@ const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, onChangeMe
 
   const onClickAsk = () => {
     onChangeMessage(message)
+
   }
 
   const onClickSave = () => {
     onSaveMessages()
   }
 
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  useEffect(() => {
+
+    scrollToBottom()
+  }, [askedMessagesWithResponses])
+
   const renderListOfAskedMessagesWithResponses = () =>
-    <Styled.ChatMessages>
+    <Styled.ChatMessages id="asked-messages">
       {askedMessagesWithResponses.map(askedMessageWithResponse => <QuestionAndReplyChatCards askedMessageWithResponse={askedMessageWithResponse} updateRating={updateRating} updateFeedback={updateFeedback} />)
-      }  </Styled.ChatMessages>
+      }
+      <div ref={messagesEndRef} />
+    </Styled.ChatMessages>
 
   const hasMessages = askedMessagesWithResponses.length
 
   return (
-    <Styled.ChatBodyContainer isLightTheme={theme}>
+    <Styled.ChatBodyContainer isLightTheme={theme} >
       {isMobile ? null : <Styled.BotAIText>Bot AI</Styled.BotAIText>}
 
       {hasMessages ? null : renderHomeTitleWithLogo()}

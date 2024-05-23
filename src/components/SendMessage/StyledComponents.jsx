@@ -2,7 +2,7 @@ import styled, { keyframes } from "styled-components";
 import tw from "twin.macro";
 
 export const SendMessageContainer = styled.div`
-  ${tw`flex items-center justify-start py-4 gap-x-6`}
+  ${tw`flex items-center justify-start py-4 px-[14px] gap-x-6`}
 `;
 
 export const SendMessageInput = styled.input`

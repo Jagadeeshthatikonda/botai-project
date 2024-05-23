@@ -2,7 +2,14 @@ import styled from "styled-components";
 import tw from "twin.macro";
 
 export const MessagesListContainer = styled.div`
-  ${tw`flex  flex-col justify-start gap-y-4 w-full grow p-4`}
+  ${tw`flex  flex-col justify-start   w-full h-full grow  py-1 overflow-y-hidden`}
+  ${props => props.isLightTheme ? tw`` : tw`bg-black text-white`}
+
+
+`;
+
+export const SavedMessagesMessagesListContainer = styled.div`
+  ${tw`flex  flex-col justify-start h-full overflow-y-auto gap-y-4 w-full grow p-4`}
   ${props => props.isLightTheme ? tw`` : tw`bg-black text-white`}
 
 `;
@@ -21,7 +28,7 @@ ${tw`font-normal text-lg	leading-[22px] text-[#000000] text-center`}
 
 export const RatingFilterContainer = styled.div`
 
-${tw`mx-auto`}
+${tw`mx-auto mt-1`}
   margin-bottom: 10px;
 `;
 

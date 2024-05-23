@@ -20,7 +20,7 @@ const PastConversationHistory = ({ savedMessages }) => {
   const filteredMessages = filterMessagesByRating(savedMessages, selectedRating);
 
   return (
-    <Styled.MessagesListContainer isLightTheme={theme}>
+    <Styled.MessagesListContainer isLightTheme={theme} >
       <Styled.ConversationHistoryText isLightTheme={theme}>
         Conversation History
       </Styled.ConversationHistoryText>
@@ -40,15 +40,18 @@ const PastConversationHistory = ({ savedMessages }) => {
       <Styled.TodayChatText isLightTheme={theme}>
         Today’s Chats
       </Styled.TodayChatText>
+      <Styled.SavedMessagesMessagesListContainer isLightTheme={theme}>
 
+        {filteredMessages.length > 0 ? (
+          filteredMessages.map(savedMessage => (
+            <SavedQuestionAndReplyChatCards key={savedMessage.id} savedMessage={savedMessage} />
+          ))
 
-      {filteredMessages.length > 0 ? (
-        filteredMessages.map(savedMessage => (
-          <SavedQuestionAndReplyChatCards key={savedMessage.id} savedMessage={savedMessage} />
-        ))
-      ) : (
-        <Styled.NoMessagesText isLightTheme={theme}>No chat messages available</Styled.NoMessagesText>
-      )}
+        ) : (
+          <Styled.NoMessagesText isLightTheme={theme}>No chat messages available</Styled.NoMessagesText>
+        )}
+      </Styled.SavedMessagesMessagesListContainer>
+
     </Styled.MessagesListContainer>
   );
 };
