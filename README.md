@@ -1,4 +1,4 @@
-# Untitled
+# Boat-AI
 
 ## **Technical Choices**
 
