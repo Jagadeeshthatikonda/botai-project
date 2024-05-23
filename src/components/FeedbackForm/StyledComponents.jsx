@@ -3,6 +3,8 @@ import tw from "twin.macro";
 
 export const ModalHeaderContainer = styled.div`
  ${tw`flex justify-start mb-4 self-start`}
+  ${props => props.isLightTheme ? tw`` : tw`text-white `}
+
 `;
 
 export const ModalHeading = styled.h2`
@@ -15,6 +17,7 @@ export const Form = styled.form`
 
 export const TextArea = styled.textarea`
  ${tw`w-[716px] h-[187px] border rounded-tl-lg p-2 mb-2 resize-none self-end`}
+  ${props => props.isLightTheme ? tw`` : tw`text-white bg-black border border-solid border-white`}
 
  @media (max-width: 800px) {
    ${tw`w-[300px]`}

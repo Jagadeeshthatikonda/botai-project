@@ -1,0 +1,10 @@
+.icon-comment {
+  width: 1rem; /* Equivalent to w-4 in Tailwind CSS */
+  height: 1rem; /* Equivalent to h-4 in Tailwind CSS */
+  cursor: pointer; /* Equivalent to cursor-pointer in Tailwind CSS */
+  margin-left: 0.5rem; /* Equivalent to mx-2 in Tailwind CSS */
+}
+
+.icon-comment:first-child {
+  margin-left: 1.5rem; /* Equivalent to first:ml-6 in Tailwind CSS */
+}

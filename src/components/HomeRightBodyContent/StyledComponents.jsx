@@ -3,6 +3,7 @@ import tw from "twin.macro";
 
 export const ChatBodyContainer = styled.div`
   ${tw`  flex flex-col justify-end  grow  w-full px-[14px]`}
+  ${props => props.isLightTheme ? tw`` : tw`bg-black `}
 `;
 
 
@@ -12,6 +13,8 @@ export const BotAIText = styled.p`
 
 export const HomeTitleWithLogoContainer = styled.div`
 ${tw`flex flex-col justify-center items-center`}
+  ${props => props.isLightTheme ? tw`` : tw`text-white `}
+
 `
 export const HomeIcon = styled.img`
   ${tw`w-[65px] h-[69px]`};

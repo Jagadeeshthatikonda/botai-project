@@ -6,7 +6,7 @@ export const SendMessageContainer = styled.div`
 `;
 
 export const SendMessageInput = styled.input`
-  ${tw`w-full h-[41px] outline-none border border-solid border-[#00000073] rounded-[5px]`}
+  ${tw`w-full pl-3 h-[41px] outline-none border border-solid border-[#00000073] rounded-[5px]`}
 `;
 
 export const ActionBtn = styled.button`

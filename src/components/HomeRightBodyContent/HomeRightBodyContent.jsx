@@ -4,11 +4,15 @@ import { cardsConfig } from "../../utils/QuickChatConfig.js"
 import SendMessage from "../SendMessage/SendMessage"
 import { useState } from 'react'
 import QuestionAndReplyChatCards from "../QuestionAndReplyChatCards/QuestionAndReplyChatCards.jsx";
+import { ThemeContext } from "../Home/Home.jsx";
+import { useContext } from "react"
 const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, onChangeMessage, updateRating, updateFeedback, onSaveMessages }) => {
   const [message, setMessage] = useState();
+  const theme = useContext(ThemeContext);
 
 
-  const renderHomeTitleWithLogo = () => <Styled.HomeTitleWithLogoContainer>
+
+  const renderHomeTitleWithLogo = () => <Styled.HomeTitleWithLogoContainer isLightTheme={theme}>
     <Styled.HomeHeadingText>How Can I Help You Today?</Styled.HomeHeadingText>
     <Styled.HomeIcon
       src={HomeLogo}
@@ -52,7 +56,7 @@ const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, onChangeMe
   const hasMessages = askedMessagesWithResponses.length
 
   return (
-    <Styled.ChatBodyContainer>
+    <Styled.ChatBodyContainer isLightTheme={theme}>
       {isMobile ? null : <Styled.BotAIText>Bot AI</Styled.BotAIText>}
 
       {hasMessages ? null : renderHomeTitleWithLogo()}

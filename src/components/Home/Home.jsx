@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import { Route, Routes } from "react-router-dom";
 
 import * as Styled from "./StyledComponents";
@@ -9,11 +9,24 @@ import { v4 as uuidV4 } from "uuid"
 import { getFormattedTime } from "../../utils/DateUtils"
 import { checkIsMobile } from "../../utils/DeviceUtils"
 import PastConversationHistory from '../PastConversationHistory/PastConversationHistory';
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch"
+
+export const ThemeContext = createContext()
+
+
 const Home = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [openSideBar, setOpenSidebar] = useState(false);
   const [askedMessagesWithResponses, setAskedMessagesWithResponses] = useState([]);
   const [savedMessages, setSavedMessages] = useState([]);
+  const [isLightTheme, setIsLightTheme] = useState(true);
+
+  const handleToggleThemeChange = () => {
+    setIsLightTheme(!isLightTheme);
+  };
+
+
+
 
   const onSaveMessages = () => {
     setSavedMessages(askedMessagesWithResponses)
@@ -90,16 +103,21 @@ const Home = () => {
     </Routes>
 
   return (
-    <Styled.HomePageContainer>
-      {isMobile ? <NavbarToggle openSidebar={openSideBar} setOpenSidebar={setOpenSidebar} /> : <Sidebar hasSavedMessages={savedMessages.length > 0} />}
-      <Styled.BodyContainer>
-        {openSideBar && isMobile ? <Styled.SidebarContainer openSideBar={openSideBar}>
-          <Sidebar hasSavedMessages={savedMessages.length > 0} />
-        </Styled.SidebarContainer> : null}
-        {handleRoutes()}
-      </Styled.BodyContainer>
-    </Styled.HomePageContainer>
+    <ThemeContext.Provider value={isLightTheme}>
+      <Styled.HomePageContainer>
+        {isMobile ? <NavbarToggle openSidebar={openSideBar} setOpenSidebar={setOpenSidebar} /> : <Sidebar hasSavedMessages={savedMessages.length > 0} />}
+        <Styled.BodyContainer>
+          <ToggleSwitch id="toggle" checked={isLightTheme} onChange={handleToggleThemeChange} />
+
+          {openSideBar && isMobile ? <Styled.SidebarContainer openSideBar={openSideBar}>
+            <Sidebar hasSavedMessages={savedMessages.length > 0} />
+          </Styled.SidebarContainer> : null}
+          {handleRoutes()}
+        </Styled.BodyContainer>
+      </Styled.HomePageContainer>
+    </ThemeContext.Provider>
   );
 };
 
 export default Home;
+

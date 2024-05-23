@@ -6,6 +6,9 @@ import tw from 'twin.macro';
 
 export const SidebarContainer = styled.div`
 ${tw`w-full h-full`}
+
+  ${props => props.isLightTheme ? tw`` : tw`bg-black border-r border-r-[1px]`}
+
 `
 export const LargeSizeSidebarContainer = styled.div`
 ${tw`max-w-[208px] bg-white w-full h-full flex flex-col justify-start`}

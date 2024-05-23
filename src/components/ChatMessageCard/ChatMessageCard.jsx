@@ -6,7 +6,11 @@ import Like from "../../assets/like.png";
 import Dislike from "../../assets/dislike.png";
 import StarRating from "../StarRating/StarRating";
 import ProvideFeedbackModal from "../FeedbackForm/FeedbackForm";
-
+import { ThemeContext } from "../Home/Home.jsx";
+import { useContext } from "react"
+import { SlLike } from "react-icons/sl";
+import { SlDislike } from "react-icons/sl";
+import "./styles.css"
 const ChatMessageCard = ({ askedMessageWithResponse, typeOfCard, updateRating, updateFeedback }) => {
   const { time, message, response, rating, id, feedback } = askedMessageWithResponse;
   const [isHovered, setIsHovered] = useState(false);
@@ -16,6 +20,7 @@ const ChatMessageCard = ({ askedMessageWithResponse, typeOfCard, updateRating, u
   const userImage = isUserAI ? HomeLogo : MyProfile;
   const chatMessage = isUserAI ? response : message;
   const userName = isUserAI ? "Soul AI" : "You";
+  const theme = useContext(ThemeContext);
 
   const handleLikeClick = () => {
     setShowStarRating(!showStarRating);
@@ -49,14 +54,16 @@ const ChatMessageCard = ({ askedMessageWithResponse, typeOfCard, updateRating, u
 
   const renderLikeDislike = () => (
     <>
-      {!rating ? <Styled.EmotionImage src={Like} alt="like" onClick={handleLikeClick} /> : null}
-      <Styled.EmotionImage src={Dislike} alt="dislike" onClick={handleDisLikeClick} />
+      {!rating ? theme ? <Styled.EmotionImage src={Like} alt="like" onClick={handleLikeClick} /> : <SlLike color={"white"} onClick={handleLikeClick} className={"icon-comment"} />
+        : null}
+      {theme ? <Styled.EmotionImage src={Dislike} alt="dislike" onClick={handleDisLikeClick} /> : <SlDislike color={"white"} onClick={handleDisLikeClick} className={'icon-comment'} />}
+
     </>
   );
 
   const renderDate = () => (
     <Styled.ChatDateContainer>
-      <Styled.ChatDate>{time}</Styled.ChatDate>
+      <Styled.ChatDate isLightTheme={theme}>{time}</Styled.ChatDate>
       {isUserAI && isHovered && renderLikeDislike()}
     </Styled.ChatDateContainer>
   );
@@ -68,8 +75,8 @@ const ChatMessageCard = ({ askedMessageWithResponse, typeOfCard, updateRating, u
   const renderFeedback = () => (
     isUserAI && feedback &&
     <Styled.FeedbackWrapper>
-      <Styled.FeedbackHeading>Feedback: </Styled.FeedbackHeading>
-      <Styled.FeedbackText>{feedback}</Styled.FeedbackText>
+      <Styled.FeedbackHeading isLightTheme={theme}>Feedback: </Styled.FeedbackHeading>
+      <Styled.FeedbackText isLightTheme={theme}>{feedback}</Styled.FeedbackText>
     </Styled.FeedbackWrapper>
   );
 
@@ -77,11 +84,12 @@ const ChatMessageCard = ({ askedMessageWithResponse, typeOfCard, updateRating, u
     <Styled.MessageCardContainer
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      isLightTheme={theme}
     >
       <Styled.UserImage src={userImage} alt={"my profile"} />
       <Styled.MessageInfo>
-        <Styled.UserNameText>{userName}</Styled.UserNameText>
-        <Styled.ChatMessage>{chatMessage}</Styled.ChatMessage>
+        <Styled.UserNameText isLightTheme={theme}>{userName}</Styled.UserNameText>
+        <Styled.ChatMessage isLightTheme={theme}>{chatMessage}</Styled.ChatMessage>
         {renderDate()}
         {renderStarRating()}
         {renderFeedback()}

@@ -39,3 +39,12 @@ animation: ${({ openSideBar }) => openSideBar ? slideIn : slideOut} 0.3s forward
 
 
 `
+
+export const ToggleButton = styled.button`
+  ${tw`py-2 px-4 mt-4 rounded-lg absolute right-0 top-0`}
+  background-color: ${({ theme }) => theme.primary};
+  color: #fff;
+  border: none;
+  cursor: pointer;
+
+`;

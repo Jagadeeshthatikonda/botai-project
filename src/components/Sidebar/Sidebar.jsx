@@ -3,13 +3,16 @@ import SidebarLogo from "../../assets/Sidebarlogo.png"
 import ChatEditLogo from "../../assets/ChatEditLogo.png"
 import * as Styled from './StyledComponents'
 import { useNavigate } from "react-router-dom";
+import { ThemeContext } from "../Home/Home.jsx";
+import { useContext } from "react"
 
 
 const Sidebar = ({ hasSavedMessages }) => {
   const navigate = useNavigate();
+  const theme = useContext(ThemeContext);
 
   return <Styled.LargeSizeSidebarContainer>
-    <Styled.SidebarContainer>
+    <Styled.SidebarContainer isLightTheme={theme}>
       <Styled.SidebarMenuItem onClick={() => {
         navigate("/");
       }}>

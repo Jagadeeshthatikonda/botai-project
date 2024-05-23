@@ -16,8 +16,8 @@ ${tw`flex justify-center items-center`}
 export const Star = styled.span`
 
 ${tw`text-lg cursor-pointer`}
-  color: ${({ isFilled, isReadonly }) => (isFilled ? `${isReadonly ? "black" : "orange"}` : 'gray')};
- 
+  color: ${({ isFilled, isReadonly, isLightTheme }) => (isFilled ? `${isReadonly ? isLightTheme ? "black" : "white" : "orange"}` : 'gray')};
+  
   transition: color 0.2s ease-in-out;
 
   &:hover {
@@ -28,4 +28,6 @@ ${tw`text-lg cursor-pointer`}
 export const RateThisResponseText = styled.p`
   ${tw`font-normal	text-xs	leading-[21px] mt-2 text-[#000000] `}
   font-family:Open Sans
+  ${props => props.isLightTheme ? tw`` : tw`text-white `}
+
 `;
