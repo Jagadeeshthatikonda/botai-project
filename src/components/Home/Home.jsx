@@ -10,7 +10,7 @@ import { getFormattedTime } from "../../utils/DateUtils"
 import { checkIsMobile } from "../../utils/DeviceUtils"
 import PastConversationHistory from '../PastConversationHistory/PastConversationHistory';
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch"
-
+import checkObjectsEqual from 'lodash';
 export const ThemeContext = createContext()
 
 
@@ -20,6 +20,7 @@ const Home = () => {
   const [askedMessagesWithResponses, setAskedMessagesWithResponses] = useState([]);
   const [savedMessages, setSavedMessages] = useState([]);
   const [isLightTheme, setIsLightTheme] = useState(true);
+  const [chatSavedStatus, setChatSavedStatus] = useState("NO_NEW_CHAT");
 
   const handleToggleThemeChange = () => {
     setIsLightTheme(prev => !prev);
@@ -29,6 +30,16 @@ const Home = () => {
 
 
   const onSaveMessages = () => {
+    const alreadySameChatExists = checkObjectsEqual.isEqual(askedMessagesWithResponses, savedMessages)
+
+    if (alreadySameChatExists) {
+      setChatSavedStatus("NO_NEW_CHAT")
+
+    } else {
+      setChatSavedStatus("NEW_CHAT")
+
+
+    }
     setSavedMessages(askedMessagesWithResponses)
   }
 
@@ -84,12 +95,13 @@ const Home = () => {
   }, []);
 
 
+
   const handleRoutes = () =>
     <Routes>
       <Route
         path="/"
         element={
-          <HomeRightBodyContent isMobile={isMobile} savedMessages={savedMessages} askedMessagesWithResponses={askedMessagesWithResponses} onChangeMessage={onChangeMessage} updateRating={updateRating} updateFeedback={updateFeedback} onSaveMessages={onSaveMessages} />
+          <HomeRightBodyContent isMobile={isMobile} setChatSavedStatus={setChatSavedStatus} chatSavedStatus={chatSavedStatus} askedMessagesWithResponses={askedMessagesWithResponses} onChangeMessage={onChangeMessage} updateRating={updateRating} updateFeedback={updateFeedback} onSaveMessages={onSaveMessages} />
 
         }
       />

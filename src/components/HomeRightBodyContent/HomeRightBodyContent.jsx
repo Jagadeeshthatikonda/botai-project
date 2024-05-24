@@ -2,15 +2,16 @@ import HomeLogo from "../../assets/HomeLogo.png"
 import * as Styled from "./StyledComponents";
 import { cardsConfig } from "../../utils/QuickChatConfig.js"
 import SendMessage from "../SendMessage/SendMessage"
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import QuestionAndReplyChatCards from "../QuestionAndReplyChatCards/QuestionAndReplyChatCards.jsx";
 import { ThemeContext } from "../Home/Home.jsx";
-import { useContext, useEffect, useRef } from "react"
+import { useContext, useEffect } from "react"
 import Snackbar from '@mui/material/Snackbar';
 
-const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, savedMessages, onChangeMessage, updateRating, updateFeedback, onSaveMessages }) => {
+const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, chatSavedStatus, setChatSavedStatus, onChangeMessage, updateRating, updateFeedback, onSaveMessages }) => {
   const [message, setMessage] = useState();
   const [openToast, setOpenToast] = useState(false);
+
 
   const theme = useContext(ThemeContext);
   const messagesEndRef = useRef(null);
@@ -60,7 +61,6 @@ const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, savedMessa
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
-
   useEffect(() => {
 
     scrollToBottom()
@@ -68,8 +68,17 @@ const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, savedMessa
 
   useEffect(() => {
 
+
+    if (!chatSavedStatus) return
+
     setOpenToast(true)
-  }, [savedMessages])
+
+    return () => {
+      setChatSavedStatus("")
+    }
+
+
+  }, [chatSavedStatus])
 
 
   const renderListOfAskedMessagesWithResponses = () =>
@@ -104,7 +113,7 @@ const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, savedMessa
         open={openToast}
         autoHideDuration={2000}
         onClose={handleCloseToast}
-        message="Saved Conversation"
+        message={chatSavedStatus === "NO_NEW_CHAT" ? "No new chat to save" : "Saved the chat"}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       />
     </Styled.ChatBodyContainer>
