@@ -3,6 +3,8 @@ import Modal from "react-modal";
 import * as Styled from "./StyledComponents"
 import { ThemeContext } from "../Home/Home.jsx";
 import { useContext } from "react"
+import lightOff from "../../assets/lightOff.png"
+import lightOn from "../../assets/lightOn.png"
 
 const ProvideFeedbackModal = ({ isOpen, closeModal, submitFeedback, feedbackText }) => {
   const [feedback, setFeedback] = useState(feedbackText ? feedbackText : '');
@@ -24,9 +26,15 @@ const ProvideFeedbackModal = ({ isOpen, closeModal, submitFeedback, feedbackText
       onRequestClose={closeModal}
       contentLabel="Provide Feedback"
       overlayClassName="fixed  inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center"
-      className={`rounded-[10px] w-fit h-[335px] rounded-tl-lg shadow-lg p-8 flex flex-col items-center ${theme ? 'bg-white' : "bg-black text-white"}`}
+      className={`rounded-[10px] w-fit h-fit rounded-tl-lg shadow-lg p-8 flex flex-col items-center ${theme ? 'bg-white' : "bg-black text-white"}`}
     >
       <Styled.ModalHeaderContainer>
+        <img src={feedback ? lightOn : lightOff} srcSet="" style={{
+
+          marginRight: "8px",
+          width: "40px",
+          height: "42px"
+        }} />
 
         <Styled.ModalHeading isLightTheme={theme}>Provide Additional Feedback</Styled.ModalHeading>
       </Styled.ModalHeaderContainer>

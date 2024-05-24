@@ -2,7 +2,7 @@ import styled from "styled-components";
 import tw from "twin.macro";
 
 export const ModalHeaderContainer = styled.div`
- ${tw`flex justify-start mb-4 self-start`}
+ ${tw`flex justify-start mb-4 self-start items-center`}
   ${props => props.isLightTheme ? tw`` : tw`text-white `}
 
 `;

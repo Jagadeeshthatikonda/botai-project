@@ -10,7 +10,7 @@ ${tw`flex flex-col `}
 `;
 
 export const StarContainer = styled.div`
-${tw`flex justify-center items-center`}
+${tw`flex justify-start items-center`}
 `;
 
 export const Star = styled.span`
