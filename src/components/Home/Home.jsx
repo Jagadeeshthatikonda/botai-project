@@ -114,12 +114,16 @@ const Home = () => {
 
     </Routes>
 
+  const onClickOutsideCloseSidebar = () => {
+    setOpenSidebar(false)
+  }
+
   return (
-    <ThemeContext.Provider value={isLightTheme}>
+    <ThemeContext.Provider value={isLightTheme} >
       <Styled.HomePageContainer>
         {isMobile ? <ToggleSwitch id="checked" checked={isLightTheme} onChange={handleToggleThemeChange} /> : null}
         {isMobile ? <NavbarToggle openSidebar={openSideBar} setOpenSidebar={setOpenSidebar} /> : <Sidebar hasSavedMessages={savedMessages.length > 0} />}
-        <Styled.BodyContainer>
+        <Styled.BodyContainer onClick={onClickOutsideCloseSidebar}>
 
           {isMobile ? null : <ToggleSwitch id="checked" checked={isLightTheme} onChange={handleToggleThemeChange} />}
 
