@@ -89,7 +89,7 @@ const Home = () => {
       <Route
         path="/"
         element={
-          <HomeRightBodyContent isMobile={isMobile} askedMessagesWithResponses={askedMessagesWithResponses} onChangeMessage={onChangeMessage} updateRating={updateRating} updateFeedback={updateFeedback} onSaveMessages={onSaveMessages} />
+          <HomeRightBodyContent isMobile={isMobile} savedMessages={savedMessages} askedMessagesWithResponses={askedMessagesWithResponses} onChangeMessage={onChangeMessage} updateRating={updateRating} updateFeedback={updateFeedback} onSaveMessages={onSaveMessages} />
 
         }
       />

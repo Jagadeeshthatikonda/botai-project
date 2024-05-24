@@ -6,8 +6,12 @@ import { useState } from 'react'
 import QuestionAndReplyChatCards from "../QuestionAndReplyChatCards/QuestionAndReplyChatCards.jsx";
 import { ThemeContext } from "../Home/Home.jsx";
 import { useContext, useEffect, useRef } from "react"
-const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, onChangeMessage, updateRating, updateFeedback, onSaveMessages }) => {
+import Snackbar from '@mui/material/Snackbar';
+
+const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, savedMessages, onChangeMessage, updateRating, updateFeedback, onSaveMessages }) => {
   const [message, setMessage] = useState();
+  const [openToast, setOpenToast] = useState(false);
+
   const theme = useContext(ThemeContext);
   const messagesEndRef = useRef(null);
 
@@ -48,6 +52,7 @@ const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, onChangeMe
 
   const onClickSave = () => {
     onSaveMessages()
+
   }
 
   const scrollToBottom = () => {
@@ -61,6 +66,12 @@ const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, onChangeMe
     scrollToBottom()
   }, [askedMessagesWithResponses])
 
+  useEffect(() => {
+
+    setOpenToast(true)
+  }, [savedMessages])
+
+
   const renderListOfAskedMessagesWithResponses = () =>
     <Styled.ChatMessages id="asked-messages">
       {askedMessagesWithResponses.map(askedMessageWithResponse => <QuestionAndReplyChatCards askedMessageWithResponse={askedMessageWithResponse} updateRating={updateRating} updateFeedback={updateFeedback} />)
@@ -69,6 +80,16 @@ const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, onChangeMe
     </Styled.ChatMessages>
 
   const hasMessages = askedMessagesWithResponses.length
+
+
+  const handleCloseToast = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenToast(false);
+  };
+
 
   return (
     <Styled.ChatBodyContainer isLightTheme={theme} >
@@ -79,6 +100,13 @@ const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, onChangeMe
 
       {renderListOfAskedMessagesWithResponses()}
       <SendMessage message={message} setMessage={setMessage} onClickAsk={onClickAsk} onClickSave={onClickSave} />
+      <Snackbar
+        open={openToast}
+        autoHideDuration={2000}
+        onClose={handleCloseToast}
+        message="Saved Conversation"
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      />
     </Styled.ChatBodyContainer>
   );
 };

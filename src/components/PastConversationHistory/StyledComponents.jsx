@@ -15,7 +15,7 @@ export const SavedMessagesMessagesListContainer = styled.div`
 `;
 
 export const TodayChatText = styled.p`
-${tw`font-normal text-sm	leading-[22px] text-[#000000]`}
+${tw`font-normal text-sm	leading-[22px] text-[#000000] pl-4`}
   ${props => props.isLightTheme ? tw`` : tw`text-white `}
 
 `
