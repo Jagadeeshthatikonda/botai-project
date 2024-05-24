@@ -13,12 +13,12 @@ const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, chatSavedS
   const [openToast, setOpenToast] = useState(false);
 
 
-  const theme = useContext(ThemeContext);
+  const isLightTheme = useContext(ThemeContext);
   const messagesEndRef = useRef(null);
 
 
 
-  const renderHomeTitleWithLogo = () => <Styled.HomeTitleWithLogoContainer isLightTheme={theme}>
+  const renderHomeTitleWithLogo = () => <Styled.HomeTitleWithLogoContainer isLightTheme={isLightTheme}>
     <Styled.HomeHeadingText>How Can I Help You Today?</Styled.HomeHeadingText>
     <Styled.HomeIcon
       src={HomeLogo}
@@ -77,7 +77,7 @@ const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, chatSavedS
       setChatSavedStatus("")
     }
 
-
+    // eslint-disable-next-line 
   }, [chatSavedStatus])
 
 
@@ -101,7 +101,7 @@ const HomeRightBodyContent = ({ isMobile, askedMessagesWithResponses, chatSavedS
 
 
   return (
-    <Styled.ChatBodyContainer isLightTheme={theme} >
+    <Styled.ChatBodyContainer isLightTheme={isLightTheme} >
       {isMobile ? null : <Styled.BotAIText>Bot AI</Styled.BotAIText>}
 
       {hasMessages ? null : renderHomeTitleWithLogo()}

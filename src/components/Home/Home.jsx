@@ -20,7 +20,7 @@ const Home = () => {
   const [askedMessagesWithResponses, setAskedMessagesWithResponses] = useState([]);
   const [savedMessages, setSavedMessages] = useState([]);
   const [isLightTheme, setIsLightTheme] = useState(true);
-  const [chatSavedStatus, setChatSavedStatus] = useState("NO_NEW_CHAT");
+  const [chatSavedStatus, setChatSavedStatus] = useState("");
 
   const handleToggleThemeChange = () => {
     setIsLightTheme(prev => !prev);

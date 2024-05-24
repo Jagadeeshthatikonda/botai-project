@@ -20,7 +20,7 @@ const ChatMessageCard = ({ askedMessageWithResponse, typeOfCard, updateRating, u
   const userImage = isUserAI ? HomeLogo : MyProfile;
   const chatMessage = isUserAI ? response : message;
   const userName = isUserAI ? "Soul AI" : "You";
-  const theme = useContext(ThemeContext);
+  const isLightTheme = useContext(ThemeContext);
 
   const handleLikeClick = () => {
     setShowStarRating(!showStarRating);
@@ -54,16 +54,16 @@ const ChatMessageCard = ({ askedMessageWithResponse, typeOfCard, updateRating, u
 
   const renderLikeDislike = () => (
     <>
-      {!rating ? theme ? <Styled.EmotionImage src={Like} alt="like" onClick={handleLikeClick} /> : <SlLike color={"white"} onClick={handleLikeClick} className={"icon-comment"} />
+      {!rating ? isLightTheme ? <Styled.EmotionImage src={Like} alt="like" onClick={handleLikeClick} /> : <SlLike color={"white"} onClick={handleLikeClick} className={"icon-comment"} />
         : null}
-      {theme ? <Styled.EmotionImage src={Dislike} alt="dislike" onClick={handleDisLikeClick} /> : <SlDislike color={"white"} onClick={handleDisLikeClick} className={'icon-comment'} />}
+      {isLightTheme ? <Styled.EmotionImage src={Dislike} alt="dislike" onClick={handleDisLikeClick} /> : <SlDislike color={"white"} onClick={handleDisLikeClick} className={'icon-comment'} />}
 
     </>
   );
 
   const renderDate = () => (
     <Styled.ChatDateContainer>
-      <Styled.ChatDate isLightTheme={theme}>{time}</Styled.ChatDate>
+      <Styled.ChatDate isLightTheme={isLightTheme}>{time}</Styled.ChatDate>
       {isUserAI && isHovered && renderLikeDislike()}
     </Styled.ChatDateContainer>
   );
@@ -75,8 +75,8 @@ const ChatMessageCard = ({ askedMessageWithResponse, typeOfCard, updateRating, u
   const renderFeedback = () => (
     isUserAI && feedback &&
     <Styled.FeedbackWrapper>
-      <Styled.FeedbackHeading isLightTheme={theme}>Feedback: </Styled.FeedbackHeading>
-      <Styled.FeedbackText isLightTheme={theme}>{feedback}</Styled.FeedbackText>
+      <Styled.FeedbackHeading isLightTheme={isLightTheme}>Feedback: </Styled.FeedbackHeading>
+      <Styled.FeedbackText isLightTheme={isLightTheme}>{feedback}</Styled.FeedbackText>
     </Styled.FeedbackWrapper>
   );
 
@@ -84,12 +84,12 @@ const ChatMessageCard = ({ askedMessageWithResponse, typeOfCard, updateRating, u
     <Styled.MessageCardContainer
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      isLightTheme={theme}
+      isLightTheme={isLightTheme}
     >
       <Styled.UserImage src={userImage} alt={"my profile"} />
       <Styled.MessageInfo>
-        <Styled.UserNameText isLightTheme={theme}>{userName}</Styled.UserNameText>
-        <Styled.ChatMessage isLightTheme={theme}>{chatMessage}</Styled.ChatMessage>
+        <Styled.UserNameText isLightTheme={isLightTheme}>{userName}</Styled.UserNameText>
+        <Styled.ChatMessage isLightTheme={isLightTheme}>{chatMessage}</Styled.ChatMessage>
         {renderDate()}
         {renderStarRating()}
         {renderFeedback()}

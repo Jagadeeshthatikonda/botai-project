@@ -6,9 +6,9 @@ import { useContext } from "react"
 
 const SavedQuestionAndReplyChatCards = ({ savedMessage }) => {
 
-  const theme = useContext(ThemeContext);
+  const isLightTheme = useContext(ThemeContext);
 
-  return <Styled.MessagesListContainer isLightTheme={theme}>
+  return <Styled.MessagesListContainer isLightTheme={isLightTheme}>
     {["question", "reply"].map((value) => {
       return (
         <SavedChartMessageCard

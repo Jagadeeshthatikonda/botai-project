@@ -9,10 +9,10 @@ import { useContext } from "react"
 
 const Sidebar = ({ hasSavedMessages }) => {
   const navigate = useNavigate();
-  const theme = useContext(ThemeContext);
+  const isLightTheme = useContext(ThemeContext);
 
   return <Styled.LargeSizeSidebarContainer>
-    <Styled.SidebarContainer isLightTheme={theme}>
+    <Styled.SidebarContainer isLightTheme={isLightTheme}>
       <Styled.SidebarMenuItem onClick={() => {
         navigate("/");
       }}>

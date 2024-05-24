@@ -11,11 +11,11 @@ const SavedChartMessageCard = ({ savedMessage, typeOfCard, updateRating, updateF
   const userImage = isUserAI ? HomeLogo : MyProfile;
   const chatMessage = isUserAI ? response : message;
   const userName = isUserAI ? "Soul AI" : "You";
-  const theme = useContext(ThemeContext);
+  const isLightTheme = useContext(ThemeContext);
 
   const renderDate = () => (
     <Styled.ChatDateContainer>
-      <Styled.ChatDate isLightTheme={theme}>{time}</Styled.ChatDate>
+      <Styled.ChatDate isLightTheme={isLightTheme}>{time}</Styled.ChatDate>
     </Styled.ChatDateContainer>
   );
 
@@ -26,17 +26,17 @@ const SavedChartMessageCard = ({ savedMessage, typeOfCard, updateRating, updateF
   const renderFeedback = () => (
     isUserAI && feedback &&
     <Styled.FeedbackWrapper>
-      <Styled.FeedbackHeading isLightTheme={theme}>Feedback: </Styled.FeedbackHeading>
-      <Styled.FeedbackText isLightTheme={theme}>{feedback}</Styled.FeedbackText>
+      <Styled.FeedbackHeading isLightTheme={isLightTheme}>Feedback: </Styled.FeedbackHeading>
+      <Styled.FeedbackText isLightTheme={isLightTheme}>{feedback}</Styled.FeedbackText>
     </Styled.FeedbackWrapper>
   );
 
   return (
-    <Styled.MessageCardContainer isLightTheme={theme}>
+    <Styled.MessageCardContainer isLightTheme={isLightTheme}>
       <Styled.UserImage src={userImage} alt={"my profile"} />
       <Styled.MessageInfo>
-        <Styled.UserNameText isLightTheme={theme}>{userName}</Styled.UserNameText>
-        <Styled.ChatMessage isLightTheme={theme}>{chatMessage}</Styled.ChatMessage>
+        <Styled.UserNameText isLightTheme={isLightTheme}>{userName}</Styled.UserNameText>
+        <Styled.ChatMessage isLightTheme={isLightTheme}>{chatMessage}</Styled.ChatMessage>
         {renderDate()}
         {renderStarRating()}
         {renderFeedback()}

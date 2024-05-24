@@ -6,7 +6,7 @@ import { useContext } from "react"
 
 const PastConversationHistory = ({ savedMessages }) => {
   const [selectedRating, setSelectedRating] = useState('All');
-  const theme = useContext(ThemeContext);
+  const isLightTheme = useContext(ThemeContext);
 
   const handleRatingChange = (event) => {
     setSelectedRating(event.target.value);
@@ -20,13 +20,13 @@ const PastConversationHistory = ({ savedMessages }) => {
   const filteredMessages = filterMessagesByRating(savedMessages, selectedRating);
 
   return (
-    <Styled.MessagesListContainer isLightTheme={theme} >
-      <Styled.ConversationHistoryText isLightTheme={theme}>
+    <Styled.MessagesListContainer isLightTheme={isLightTheme} >
+      <Styled.ConversationHistoryText isLightTheme={isLightTheme}>
         Conversation History
       </Styled.ConversationHistoryText>
 
-      <Styled.RatingFilterContainer isLightTheme={theme}>
-        <Styled.RatingFilterLabel htmlFor="ratingFilter" isLightTheme={theme}>Filter by Rating:</Styled.RatingFilterLabel>
+      <Styled.RatingFilterContainer isLightTheme={isLightTheme}>
+        <Styled.RatingFilterLabel htmlFor="ratingFilter" isLightTheme={isLightTheme}>Filter by Rating:</Styled.RatingFilterLabel>
         <Styled.RatingFilterSelect id="ratingFilter" value={selectedRating} onChange={handleRatingChange}>
           <option value="All">All</option>
           <option value="1">1 Star</option>
@@ -37,10 +37,10 @@ const PastConversationHistory = ({ savedMessages }) => {
         </Styled.RatingFilterSelect>
       </Styled.RatingFilterContainer>
 
-      <Styled.TodayChatText isLightTheme={theme}>
+      <Styled.TodayChatText isLightTheme={isLightTheme}>
         Today’s Chats
       </Styled.TodayChatText>
-      <Styled.SavedMessagesMessagesListContainer isLightTheme={theme}>
+      <Styled.SavedMessagesMessagesListContainer isLightTheme={isLightTheme}>
 
         {filteredMessages.length > 0 ? (
           filteredMessages.map(savedMessage => (
@@ -48,7 +48,7 @@ const PastConversationHistory = ({ savedMessages }) => {
           ))
 
         ) : (
-          <Styled.NoMessagesText isLightTheme={theme}>No chat messages available</Styled.NoMessagesText>
+          <Styled.NoMessagesText isLightTheme={isLightTheme}>No chat messages available</Styled.NoMessagesText>
         )}
       </Styled.SavedMessagesMessagesListContainer>
 

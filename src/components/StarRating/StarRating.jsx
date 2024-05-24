@@ -8,7 +8,7 @@ import { useContext } from "react"
 const StarRating = ({ onChangeRating, isReadonly, ratingValue }) => {
   const [hovered, setHovered] = useState(null);
   const [rating, setRating] = useState(ratingValue ? ratingValue : 0);
-  const theme = useContext(ThemeContext);
+  const isLightTheme = useContext(ThemeContext);
 
   const handleMouseOver = (index) => {
     if (isReadonly) return
@@ -29,7 +29,7 @@ const StarRating = ({ onChangeRating, isReadonly, ratingValue }) => {
 
   return (
     <Styled.StarsWrapper>
-      <Styled.RateThisResponseText isLightTheme={theme}>Rate this Response</Styled.RateThisResponseText>
+      <Styled.RateThisResponseText isLightTheme={isLightTheme}>Rate this Response</Styled.RateThisResponseText>
       <Styled.StarContainer>
         {[1, 2, 3, 4, 5].map((star) => (
           <Styled.Star
@@ -39,7 +39,7 @@ const StarRating = ({ onChangeRating, isReadonly, ratingValue }) => {
             onMouseOut={handleMouseOut}
             onClick={() => handleClick(star)}
             isReadonly={isReadonly}
-            isLightTheme={theme}
+            isLightTheme={isLightTheme}
           >
             ★
           </Styled.Star>
