@@ -30,11 +30,12 @@ const ProvideFeedbackModal = ({ isOpen, closeModal, submitFeedback, feedbackText
       className={`rounded-[10px] w-fit h-fit rounded-tl-lg shadow-lg p-8 flex flex-col items-center ${theme ? 'bg-white' : "bg-black text-white"}`}
     >
       <Styled.ModalHeaderContainer>
-        <img src={feedback ? lightOn : theme ? lightOff : lightWhite} srcSet="" style={{
+        <img src={feedback ? lightOn : theme ? lightOff : lightWhite} srcSet="" alt="bulb" style={{
 
           marginRight: "8px",
           width: "40px",
           height: "42px"
+
         }} />
 
         <Styled.ModalHeading isLightTheme={theme}>Provide Additional Feedback</Styled.ModalHeading>
