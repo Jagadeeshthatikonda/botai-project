@@ -5,6 +5,7 @@ import { ThemeContext } from "../Home/Home.jsx";
 import { useContext } from "react"
 import lightOff from "../../assets/lightOff.png"
 import lightOn from "../../assets/lightOn.png"
+import lightWhite from "../../assets/lightWhite.png"
 
 const ProvideFeedbackModal = ({ isOpen, closeModal, submitFeedback, feedbackText }) => {
   const [feedback, setFeedback] = useState(feedbackText ? feedbackText : '');
@@ -29,7 +30,7 @@ const ProvideFeedbackModal = ({ isOpen, closeModal, submitFeedback, feedbackText
       className={`rounded-[10px] w-fit h-fit rounded-tl-lg shadow-lg p-8 flex flex-col items-center ${theme ? 'bg-white' : "bg-black text-white"}`}
     >
       <Styled.ModalHeaderContainer>
-        <img src={feedback ? lightOn : lightOff} srcSet="" style={{
+        <img src={feedback ? lightOn : theme ? lightOff : lightWhite} srcSet="" style={{
 
           marginRight: "8px",
           width: "40px",

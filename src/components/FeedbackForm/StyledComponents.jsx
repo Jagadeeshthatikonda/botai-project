@@ -9,6 +9,8 @@ export const ModalHeaderContainer = styled.div`
 
 export const ModalHeading = styled.h2`
  ${tw`text-2xl text-left text-gray-700`}
+  ${props => props.isLightTheme ? tw`` : tw`text-white `}
+
 `;
 
 export const Form = styled.form`
@@ -25,7 +27,7 @@ export const TextArea = styled.textarea`
 `;
 
 export const SubmitButton = styled.button`
-${tw`flex justify-center items-center text-sm font-normal	leading-[22px] w-[157px] h-[50px] bg-[#D7C7F4] rounded-[5px] text-[#000000] border-none outline-none self-end`}
+${tw`flex justify-center items-center text-sm font-normal	leading-[22px] w-[157px] h-[50px] bg-[#D7C7F4] rounded-[5px] text-[#000000] border-none outline-none self-end mt-2`}
 
 font-family:Ubuntu;
 `;
