@@ -28,7 +28,7 @@ export const HomeHeadingText = styled.p`
 
 
 export const QuickChatFeaturesContainer = styled.div`
-${tw`flex items-center flex-wrap gap-y-[14px] gap-x-[32px] mt-[100px]`}
+${tw`flex items-center flex-wrap gap-y-[14px] gap-x-[32px] mt-[100px] px-4`}
 @media (max-width: 800px) {
    ${tw`justify-center`}
   }
