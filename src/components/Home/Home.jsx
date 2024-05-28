@@ -1,63 +1,66 @@
 import React, { useState, useEffect, createContext } from 'react';
-import { Route, Routes } from "react-router-dom";
-
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import * as Styled from "./StyledComponents";
 import Sidebar from "../Sidebar/Sidebar";
 import NavbarToggle from "../NavbarToggle/NavbarToggle";
-import HomeRightBodyContent from '../HomeRightBodyContent/HomeRightBodyContent'
-import { v4 as uuidV4 } from "uuid"
-import { getFormattedTime } from "../../utils/DateUtils"
-import { checkIsMobile } from "../../utils/DeviceUtils"
+import HomeRightBodyContent from '../HomeRightBodyContent/HomeRightBodyContent';
+import { v4 as uuidV4 } from "uuid";
+import { getFormattedTime } from "../../utils/DateUtils";
+import { checkIsMobile } from "../../utils/DeviceUtils";
 import PastConversationHistory from '../PastConversationHistory/PastConversationHistory';
-import ToggleSwitch from "../ToggleSwitch/ToggleSwitch"
-import checkObjectsEqual from 'lodash';
-export const ThemeContext = createContext()
-
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+export const ThemeContext = createContext();
 
 const Home = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [openSideBar, setOpenSidebar] = useState(false);
   const [askedMessagesWithResponses, setAskedMessagesWithResponses] = useState([]);
-  const [savedMessages, setSavedMessages] = useState([]);
   const [isLightTheme, setIsLightTheme] = useState(true);
   const [chatSavedStatus, setChatSavedStatus] = useState("");
+  const [savedMessages, setSavedMessages] = useState([]);
+  const [currentConversationId, setCurrentConversationId] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleToggleThemeChange = () => {
     setIsLightTheme(prev => !prev);
   };
 
-
-
-
   const onSaveMessages = () => {
-    const alreadySameChatExists = checkObjectsEqual.isEqual(askedMessagesWithResponses, savedMessages)
+    const currentConversation = {
+      id: currentConversationId || uuidV4(),
+      messages: askedMessagesWithResponses,
+      timestamp: getFormattedTime(),
+    };
 
-    if (alreadySameChatExists) {
-      setChatSavedStatus("NO_NEW_CHAT")
+    const alreadySavedIndex = savedMessages.findIndex(convo => convo.id === currentConversation.id);
 
+    if (alreadySavedIndex === -1) {
+      const newSavedMessages = [...savedMessages, currentConversation];
+      setSavedMessages(newSavedMessages);
+      localStorage.setItem('savedMessages', JSON.stringify(newSavedMessages));
+      setCurrentConversationId(currentConversation.id);
+      setChatSavedStatus("NEW_CHAT");
     } else {
-      setChatSavedStatus("NEW_CHAT")
-
-
+      const updatedSavedMessages = savedMessages.map((convo, index) =>
+        index === alreadySavedIndex ? currentConversation : convo
+      );
+      setSavedMessages(updatedSavedMessages);
+      localStorage.setItem('savedMessages', JSON.stringify(updatedSavedMessages));
+      setChatSavedStatus("UPDATED_CHAT");
     }
-    setSavedMessages(askedMessagesWithResponses)
-  }
+  };
 
   const onChangeMessage = (message) => {
-
-    const time = getFormattedTime()
+    const time = getFormattedTime();
     const userMessageType = {
       id: uuidV4(),
       message,
       time,
       response: "Some Answer given by AI :)"
-    }
-
-
-
-    setAskedMessagesWithResponses(prev => [...prev, userMessageType])
-
-  }
+    };
+    setAskedMessagesWithResponses(prev => [...prev, userMessageType]);
+  };
 
   const updateRating = (id, rating) => {
     setAskedMessagesWithResponses(prevMessages =>
@@ -74,8 +77,6 @@ const Home = () => {
       )
     );
   };
-
-
 
   useEffect(() => {
     const handleResize = () => {
@@ -94,42 +95,67 @@ const Home = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const storedMessages = JSON.parse(localStorage.getItem('savedMessages'));
+    if (storedMessages) {
+      setSavedMessages(storedMessages);
+    }
+  }, []);
 
+  useEffect(() => {
+    if (location.pathname === '/') {
+      setAskedMessagesWithResponses([]);
+      setCurrentConversationId(null);
+    }
+  }, [location.pathname]);
 
-  const handleRoutes = () =>
+  const handleRoutes = () => (
     <Routes>
       <Route
         path="/"
         element={
-          <HomeRightBodyContent isMobile={isMobile} setChatSavedStatus={setChatSavedStatus} chatSavedStatus={chatSavedStatus} askedMessagesWithResponses={askedMessagesWithResponses} onChangeMessage={onChangeMessage} updateRating={updateRating} updateFeedback={updateFeedback} onSaveMessages={onSaveMessages} />
-
+          <HomeRightBodyContent
+            isMobile={isMobile}
+            setChatSavedStatus={setChatSavedStatus}
+            chatSavedStatus={chatSavedStatus}
+            askedMessagesWithResponses={askedMessagesWithResponses}
+            onChangeMessage={onChangeMessage}
+            updateRating={updateRating}
+            updateFeedback={updateFeedback}
+            onSaveMessages={onSaveMessages}
+          />
         }
       />
       <Route
-        path="/history"
-        element={
-          <PastConversationHistory savedMessages={savedMessages} />
-        }
+        path="/history/:id"
+        element={<PastConversationHistory savedMessages={savedMessages} />}
       />
-
     </Routes>
+  );
 
   const onClickOutsideCloseSidebar = () => {
-    setOpenSidebar(false)
-  }
+    setOpenSidebar(false);
+  };
+
+  const startNewChat = () => {
+    setAskedMessagesWithResponses([]);
+    setCurrentConversationId(null);
+    setChatSavedStatus("");
+    navigate("/");
+  };
 
   return (
-    <ThemeContext.Provider value={isLightTheme} >
+    <ThemeContext.Provider value={isLightTheme}>
       <Styled.HomePageContainer>
         {isMobile ? <ToggleSwitch id="checked" checked={isLightTheme} onChange={handleToggleThemeChange} /> : null}
-        {isMobile ? <NavbarToggle openSidebar={openSideBar} setOpenSidebar={setOpenSidebar} /> : <Sidebar hasSavedMessages={savedMessages.length > 0} />}
+        {isMobile ? <NavbarToggle openSidebar={openSideBar} setOpenSidebar={setOpenSidebar} /> : <Sidebar savedMessages={savedMessages} startNewChat={startNewChat} />}
         <Styled.BodyContainer onClick={onClickOutsideCloseSidebar}>
-
           {isMobile ? null : <ToggleSwitch id="checked" checked={isLightTheme} onChange={handleToggleThemeChange} />}
-
-          {openSideBar && isMobile ? <Styled.SidebarContainer openSideBar={openSideBar}>
-            <Sidebar hasSavedMessages={savedMessages.length > 0} />
-          </Styled.SidebarContainer> : null}
+          {openSideBar && isMobile ? (
+            <Styled.SidebarContainer openSideBar={openSideBar}>
+              <Sidebar savedMessages={savedMessages} startNewChat={startNewChat} />
+            </Styled.SidebarContainer>
+          ) : null}
           {handleRoutes()}
         </Styled.BodyContainer>
       </Styled.HomePageContainer>
@@ -138,4 +164,3 @@ const Home = () => {
 };
 
 export default Home;
-

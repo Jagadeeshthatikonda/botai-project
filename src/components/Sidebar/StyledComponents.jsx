@@ -5,13 +5,13 @@ import styled from 'styled-components';
 import tw from 'twin.macro';
 
 export const SidebarContainer = styled.div`
-${tw`w-full h-full`}
+${tw`w-full h-full flex flex-col overflow-hidden`}
 
   ${props => props.isLightTheme ? tw`` : tw`bg-black border-r border-r-[1px]`}
 
 `
 export const LargeSizeSidebarContainer = styled.div`
-${tw`max-w-[208px] bg-white w-full h-full flex flex-col justify-start`}
+${tw`max-w-[208px] bg-white w-full h-full flex flex-col justify-start overflow-hidden`}
 `
 
 
@@ -53,4 +53,8 @@ linear-gradient(0deg, #D7C7F4, #D7C7F4);
 export const ChatEditLogo = styled.img`
 
 ${tw`w-6 h-6 ml-6 self-end`}
+`
+export const PastConversationsList = styled.div`
+
+${tw`grow overflow-y-auto`}
 `
